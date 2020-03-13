@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Post action
-        uses: n-kerns/TestingActions@v1.2
+        uses: n-kerns/TestingActions@v1.3
         with:
           organization: 'techsmith'
           flow: 'cory-test'
