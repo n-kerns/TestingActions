@@ -4,7 +4,7 @@ name: Flowdock Poster
 
 on:
   pull_request:
-    types: [created]
+    types: [opened]
 
 jobs:
   post-it:
