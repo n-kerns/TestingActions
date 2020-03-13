@@ -23266,14 +23266,31 @@ const core = __webpack_require__(435);
 const github = __webpack_require__(342);
 const axios = __webpack_require__(479);
 
+const constructMessage = () => {
+  const pullAuthor = github.context.payload.pull_request.user.login;
+  const pullURL = github.context.payload.pull_request.html_url;
+  return `:pr: A PR was posted by ${pullAuthor} on the CamtasiaWin repo. Check it out at ${pullURL}`;
+}
+
 try {
-  axios.post(`https://${core.getInput('flowdock_api_token')}@api.flowdock.com/flows/${core.getInput('organization')}/${core.getInput('flow')}/messages`,
+  const apiToken = core.getInput('flowdock_api_token');
+  const organization = core.getInput('organization');
+  const flow = core.getInput('flow');
+
+  const messageContent = constructMessage();
+  axios.post(`https://${apiToken}@api.flowdock.com/flows/${organization}/${flow}/messages`,
   {
-    'event': 'message',
-    'content': "HOWDY!!!! :smiley:",
-    'external_user_name': 'Flowdock TEST'
+    event: 'message',
+    content: messageContent,
+    external_user_name: 'CamtasiaWinGitHub'
   }).then(response => {
-    console.log(JSON.stringify(response));
+    if (response.status === 200 || response.status === 202) {
+      console.log("SUCCESS! Posted the message to flowdock.");
+    }
+    else {
+      console.warn('We got a weird response...');
+      core.setFailed(JSON.stringify(response.data));
+    }
   }).catch(error => {
     core.setFailed(error.message);
   });
