@@ -1,0 +1,15 @@
+name: 'Flowdock Poster'
+description: 'Posts the PR to a flowdock channel'
+inputs:
+  organization:
+    description: 'The organization to post it in'
+    required: true
+  flow:
+    description: 'The flow to post the message in'
+    required: true
+  flowdock_api_token:
+    description: 'Your API token for flowdock'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
