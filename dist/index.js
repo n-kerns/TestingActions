@@ -23284,11 +23284,11 @@ try {
     content: messageContent,
     external_user_name: 'CamtasiaWinGitHub'
   }).then(response => {
-    if (response.status === 200 || response.status === 202) {
+    if (response.status >= 200 && response.status < 300) {
       console.log("SUCCESS! Posted the message to flowdock.");
     }
     else {
-      console.warn('We got a weird response...');
+      console.warn(`We got a weird response... Status: ${response.status}, statusText: ${response.statusText}`);
       core.setFailed(JSON.stringify(response.data));
     }
   }).catch(error => {
