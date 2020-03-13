@@ -1,2 +1,3 @@
 # TestingActions
-Testing github actions :)
+
+This repo is created to test actions out!
