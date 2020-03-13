@@ -13,6 +13,9 @@ jobs:
 
     steps:
       - name: Post action
-        uses: actions/hello-world-javascript-action@v1
+        uses: n-kerns/TestingActions
         with:
-          who-to-greet: 'AJ :)'
+          organization: 'techsmith'
+          flow: 'cory-test'
+          flowdock_api_token: ${{ secrets.FLOWDOCK_API_KEY }}
+
