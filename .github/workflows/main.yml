@@ -1,18 +1,19 @@
-# This is a basic workflow to help you get started with Actions
-
-name: Flowdock Poster
-
+name: Flowdock Poster (External Actions)
 on:
   pull_request:
-    types: [opened]
-
+    types: [created]
 jobs:
   post-it:
     runs-on: ubuntu-latest
-    name: Posts the PR to flowdock
+    name: Posts the PR to a flowdock flow
 
     steps:
-      - name: Post action
-        uses: actions/hello-world-javascript-action@v1
+      - name: Filter PR Author
+        uses: TechSmith/action-flowdock-usermap@1.0.0
+        id: filter
+      - name: Post PR to flow
+        uses: TechSmith/flowdock-post-action@1.0.0
         with:
-          who-to-greet: 'AJ :)'
+          organization: 'techsmith'
+          flow: ${{ steps.filter.outputs.flow }}
+          flowdock_api_token: ${{ secrets.FLOWDOCK_API_KEY }}
