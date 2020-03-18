@@ -1,0 +1,19 @@
+name: Flowdock Poster
+on:
+  pull_request:
+    types: [created]
+jobs:
+  post-it:
+    runs-on: ubuntu-latest
+    name: Posts the PR to a flowdock flow
+
+    steps:
+      - name: Filter PR Author
+        uses: TechSmith/action-flowdock-usermap@1.0.0
+        id: filter
+      - name: Post PR to flow
+        uses: TechSmith/flowdock-post-action@1.0.0
+        with:
+          organization: 'techsmith'
+          flow: ${{ steps.filter.outputs.flow }}
+          flowdock_api_token: ${{ secrets.FLOWDOCK_API_KEY }}
