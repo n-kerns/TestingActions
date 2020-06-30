@@ -1,0 +1,12 @@
+name: Scheduled Github Action
+on:
+  schedule:
+    - cron:  '*/15 * * * *'
+jobs:
+  post-it:
+    runs-on: ubuntu-latest
+    name: Posts a simple hello world every 15 minutes
+
+    steps:
+      - name: Very important step
+        run: echo "Hello world!"
