@@ -1,19 +1,20 @@
-name: Flowdock Poster (External Actions)
+name: Teams Poster (External Actions)
 on:
   pull_request:
-    types: [created]
+    types: [opened, ready_for_review]
 jobs:
   post-it:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     name: Posts the PR to a flowdock flow
 
     steps:
-      - name: Filter PR Author
-        uses: TechSmith/action-flowdock-usermap@1.0.0
-        id: filter
+      #- name: Filter PR Author
+      #  uses: TechSmith/action-flowdock-usermap@1.0.0
+      #  id: filter
       - name: Post PR to flow
-        uses: TechSmith/flowdock-post-action@1.0.0
+        uses: n-kerns/action-teams-poster@master
         with:
           organization: 'techsmith'
-          flow: ${{ steps.filter.outputs.flow }}
-          flowdock_api_token: ${{ secrets.FLOWDOCK_API_KEY }}
+          # flow: ${{ steps.filter.outputs.flow }}
+          flowdock_api_token: ${{ secrets.TEAMS_WEBHOOK_URL }}
