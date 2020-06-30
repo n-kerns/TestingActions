@@ -6,15 +6,10 @@ jobs:
   post-it:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
-    name: Posts the PR to a flowdock flow
+    name: Posts the PR to a Teams webhook
 
     steps:
-      #- name: Filter PR Author
-      #  uses: TechSmith/action-flowdock-usermap@1.0.0
-      #  id: filter
-      - name: Post PR to flow
+      - name: Post PR to Teams
         uses: n-kerns/action-teams-poster@master
         with:
-          organization: 'techsmith'
-          # flow: ${{ steps.filter.outputs.flow }}
-          flowdock_api_token: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
